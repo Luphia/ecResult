@@ -1,7 +1,7 @@
 var ecResult = function (data) {
 	this.dataType = "ecResult";
-	this.output = false;
 	this.done = false;
+	this.end = false;
 	this.format(data);
 };
 ecResult.prototype.format = function (data) {
@@ -73,7 +73,7 @@ ecResult.prototype.isDone = function () {
 	return this.done;
 };
 ecResult.prototype.isEnd = function () {
-	return this.response;
+	return this.end;
 };
 
 ecResult.prototype.toJSON = function () {
@@ -88,11 +88,11 @@ ecResult.prototype.toJSON = function () {
 	};
 };
 ecResult.prototype.response = function () {
-	if(this.response) {
+	if(this.isEnd) {
 		return false;
 	}
 	else {
-		this.response = true;
+		this.end = true;
 		return this.toJSON();
 	}
 };
