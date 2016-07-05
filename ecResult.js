@@ -112,7 +112,7 @@ ecResult.prototype.toJSON = function () {
 };
 ecResult.prototype.response = function () {
 	if(this.isEnd()) {
-		return false;
+		return this.toJSON();
 	}
 	else {
 		this.attr.end = new Date().getTime();
