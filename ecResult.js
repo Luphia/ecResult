@@ -74,7 +74,9 @@ ecResult.prototype.setCommand = function (id) {
 	this.attr.command = id;
 	return this;
 };
-
+ecResult.prototype.resetResponse = function () {
+	this.attr.output = false;
+};
 ecResult.prototype.isDone = function () {
 	return this.attr.done;
 };
