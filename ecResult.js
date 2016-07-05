@@ -76,6 +76,12 @@ ecResult.prototype.setCommand = function (id) {
 };
 ecResult.prototype.resetResponse = function () {
 	this.attr.output = false;
+	return this;
+};
+ecResult.prototype.resetError = function () {
+	this.attr.message = '';
+	delete this.attr.errorcode;
+	return this;
 };
 ecResult.prototype.isDone = function () {
 	return this.attr.done;
