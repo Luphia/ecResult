@@ -2,6 +2,7 @@ var ecResult = function (data) {
 	this.dataType = "ecResult";
 	this.done = false;
 	this.end = false;
+	this.start = new Date().getTime();
 	this.format(data);
 };
 ecResult.prototype.format = function (data) {
@@ -73,7 +74,7 @@ ecResult.prototype.isDone = function () {
 	return this.done;
 };
 ecResult.prototype.isEnd = function () {
-	return this.end;
+	return (this.end > 0);
 };
 
 ecResult.prototype.toJSON = function () {
@@ -83,16 +84,16 @@ ecResult.prototype.toJSON = function () {
 		errorcode: this.attr.errorcode,
 		session: this.attr.session,
 		message: this.attr.message || "",
-		cost: this.attr.cost,
+		cost: (this.attr.cost + this.end - this.start),
 		data: this.attr.data || {}
 	};
 };
 ecResult.prototype.response = function () {
-	if(this.isEnd) {
+	if(this.isEnd()) {
 		return false;
 	}
 	else {
-		this.end = true;
+		this.end = new Date().getTime();
 		return this.toJSON();
 	}
 };
