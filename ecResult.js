@@ -86,6 +86,9 @@ ecResult.prototype.isResponse = function () {
 ecResult.prototype.isEnd = function () {
 	return (this.attr.end > 0);
 };
+ecResult.prototype.isExpire = function (expireTime) {
+	return this.isEnd() && (expireTime > this.attr.end);
+};
 
 ecResult.prototype.toJSON = function () {
 	var cost = this.attr.cost || 0;
