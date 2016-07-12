@@ -6,6 +6,7 @@ ecResult.prototype.format = function (data) {
 	this.attr = {};
 	this.dataType = "ecResult";
 	this.attr.done = false;
+	this.attr.input = [];
 	this.attr.output = false;
 	this.attr.end = false;
 	this.attr.start = new Date().getTime();
@@ -74,6 +75,19 @@ ecResult.prototype.setCommand = function (id) {
 	this.attr.command = id;
 	return this;
 };
+ecResult.prototype.setInput = function (data, source) {
+	var self = this;
+	var pushInput = function (value, key, source) {
+		self.attr.input.push({key: key, value: value, source: source});
+	};
+	if(typeof(data) == 'object') {
+		for(var k in data) { pushInput(data[k], k, source); }
+	}
+	else if(data !== undefined) {
+		pushInput(data, undefined, source);
+	}
+	return this;
+};
 ecResult.prototype.resetResponse = function () {
 	this.attr.output = false;
 	return this;
@@ -96,7 +110,7 @@ ecResult.prototype.isExpire = function (expireTime) {
 	return this.isEnd() && (expireTime > this.attr.end);
 };
 
-ecResult.prototype.toJSON = function () {
+ecResult.prototype.toJSON = function (detail) {
 	var cost = this.attr.cost || 0;
 	var json = {
 		command: this.attr.command,
@@ -106,17 +120,18 @@ ecResult.prototype.toJSON = function () {
 		message: this.attr.message || "",
 		data: this.attr.data || {}
 	};
+	if(detail) { json.input = this.attr.input; }
 	if(this.attr.end > 0) { json.cost = cost + this.attr.end - this.attr.start; }
 	this.attr.output = new Date().getTime();
 	return json;
 };
-ecResult.prototype.response = function () {
+ecResult.prototype.response = function (detail) {
 	if(this.isEnd()) {
-		return this.toJSON();
+		return this.toJSON(detail);
 	}
 	else {
 		this.attr.end = new Date().getTime();
-		return this.toJSON();
+		return this.toJSON(detail);
 	}
 };
 
