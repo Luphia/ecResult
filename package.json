@@ -1,6 +1,6 @@
 {
   "name": "ecresult",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "An easy way to format API result",
   "main": "ecResult.js",
   "scripts": {

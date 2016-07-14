@@ -116,7 +116,6 @@ ecResult.prototype.toJSON = function (detail) {
 		command: this.attr.command,
 		result: this.attr.result || 0,
 		errorcode: this.attr.errorcode,
-		session: this.attr.session,
 		message: this.attr.message || "",
 		data: this.attr.data || {}
 	};
