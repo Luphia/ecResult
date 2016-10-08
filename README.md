@@ -26,6 +26,16 @@ result.setErrorCode('10001')
 result.setMessage('Something wrong');
 ```
 
+### Generate Result with error
+```node
+const ecresult = require('ecresult');
+
+var result = new ecresult();
+var error = new Error('Another thing wrong');
+error.code = '10002';
+result.setError(error);
+```
+
 ###  Output Result
 ```
 const ecresult = require('ecresult');

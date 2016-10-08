@@ -36,6 +36,13 @@ ecResult.prototype.setResult = function (result) {
 	this.attr.done = true;
 	return this;
 };
+ecResult.prototype.setError = function (error) {
+	if(error === undefined) { return this; }
+	this.attr.result = 0;
+	this.attr.done = true;
+	this.attr.errorcode = error.code;
+	this.attr.message = error.message;
+}
 ecResult.prototype.setErrorCode = function (errorcode) {
 	if(errorcode === undefined) { return this; }
 	this.attr.errorcode = errorcode.toString();
